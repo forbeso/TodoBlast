@@ -8,6 +8,10 @@ interface Task {
 }
 
 export const TodoList: React.FC = () => {
+  const [item, setItem] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [addError, setAddError] = useState<boolean>(false);
+
   const [todos, setTodos] = useState<Task[]>([
     {
       id: 1,
@@ -36,17 +40,20 @@ export const TodoList: React.FC = () => {
     },
   ]);
 
-  const [item, setItem] = useState<string>("");
-
   //add a new item to the the list
   const handleAddItem = () => {
-    const newTodo: Task = {
-      id: Date.now(),
-      text: item,
-      completed: false,
-    };
-    setTodos([...todos, newTodo]);
-    setItem("");
+    if (!item) {
+      setAddError(true);
+    } else {
+      const newTodo: Task = {
+        id: Date.now(),
+        text: item,
+        completed: false,
+      };
+      setTodos([...todos, newTodo]);
+      setItem("");
+      setAddError(false);
+    }
   };
 
   const handleRemove = (id: number) => {
@@ -74,45 +81,63 @@ export const TodoList: React.FC = () => {
         </h1>
 
         <div className="mb-5 box-content">
+          <div className="mb-3">
+            <input
+              type="text"
+              placeholder="Search todos"
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="border-2 p-2"
+              value={searchQuery}
+            />
+          </div>
           <ul className="">
-            {todos.map((todo) => (
-              <li
-                className="mb-5 p-2 bg-lime-300"
-                key={todo.id}
-                style={{
-                  textDecoration: todo.completed ? "line-through" : "none",
-                }}>
-                {todo.text}
-                <div>
-                  <span
-                    className="font-bold text-white bg-lime-950 px-2 py-1 rounded"
-                    // key={todo.id}
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleRemoveItem(todo.id)}>
-                    ✔
-                  </span>
-                  &nbsp;
-                  <span
-                    className="font-bold text-white bg-orange-500 px-2 py-1 rounded"
-                    // key={todo.id}
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleRemove(todo.id)}>
-                    X
-                  </span>
-                </div>
-              </li>
-            ))}
+            {todos
+              .filter((todo) =>
+                todo.text.toLowerCase().includes(searchQuery.toLowerCase())
+              )
+              .map((todo) => (
+                <li
+                  className="mb-5 p-2 bg-lime-300"
+                  key={todo.id}
+                  style={{
+                    textDecoration: todo.completed ? "line-through" : "none",
+                  }}>
+                  {todo.text}
+                  <div>
+                    <span
+                      className="font-bold text-white bg-lime-950 px-2 py-1 rounded"
+                      // key={todo.id}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleRemoveItem(todo.id)}>
+                      ✔
+                    </span>
+                    &nbsp;
+                    <span
+                      className="font-bold text-white bg-orange-500 px-2 py-1 rounded"
+                      // key={todo.id}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleRemove(todo.id)}>
+                      X
+                    </span>
+                  </div>
+                </li>
+              ))}
           </ul>
         </div>
 
         <div className="mb-3">
           <input
             type="text"
-            placeholder="add item"
+            placeholder="Enter your todo item here"
             onChange={(e) => setItem(e.currentTarget.value)}
             className="border-2 p-2"
             value={item}
           />
+          {addError && (
+            <p className="text-red-500 font-bold">
+              Add a todo to see it in your list.
+            </p>
+          )}
         </div>
 
         <button
