@@ -128,7 +128,7 @@ export const TodoList: React.FC = () => {
         <div className="mb-3">
           <input
             type="text"
-            placeholder="Enter your todo item here"
+            placeholder="Enter your todo item"
             onChange={(e) => setItem(e.currentTarget.value)}
             className="border-2 p-2"
             value={item}
