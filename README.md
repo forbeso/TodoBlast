@@ -1,6 +1,6 @@
 # ToDoer - Your Ultimate Todo List Web App
 
-![ToDoer](link-to-screenshot)
+![ToDoer]https://github.com/forbeso/TodoBlast/issues/1#issue-1816943925
 
 Stay organized and boost productivity with ToDoer - a feature-rich Todo List web app built using TypeScript. Manage tasks efficiently, prioritize, and achieve your goals with ease. 🚀
 
