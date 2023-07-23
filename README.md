@@ -1,6 +1,6 @@
 # ToDoer - Your Ultimate Todo List Web App
 
-![ToDoer](https://user-images.githubusercontent.com/65794818/255357612-e2bca908-cc55-42bf-a646-11d12c9add28.png)
+![ToDoer](https://user-images.githubusercontent.com/65794818/255394447-e3a37519-45e0-494d-b655-a46dc5be7c58.png)
 
 Stay organized and boost productivity with ToDoer - a feature-rich Todo List web app built using TypeScript. Manage tasks efficiently, prioritize, and achieve your goals with ease. 🚀
 
